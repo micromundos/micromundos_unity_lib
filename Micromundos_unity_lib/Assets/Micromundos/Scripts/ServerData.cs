@@ -92,9 +92,9 @@ public class ServerData : MonoBehaviour {
 		#if UNITY_EDITOR
 		string filePath = Directory.GetParent (Application.dataPath).FullName;
 		#elif UNITY_STANDALONE_WIN
-		string filePath = Directory.GetParent(Application.dataPath).FullName+PATH;
+		string filePath = Directory.GetParent(Application.dataPath).FullName;
 		#elif UNITY_STANDALONE_OSX
-		string filePath = Directory.GetParent(Directory.GetParent(Application.dataPath).FullName).FullName+PATH;
+		string filePath = Directory.GetParent(Directory.GetParent(Application.dataPath).FullName).FullName;
 		#endif
 
 		Debug.Log (filePath);
