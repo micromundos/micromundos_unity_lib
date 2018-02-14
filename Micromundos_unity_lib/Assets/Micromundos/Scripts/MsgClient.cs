@@ -212,4 +212,14 @@ public class MsgClient : MonoBehaviour {
 		string[] vec = d.Split('=')[1].Split(',');
 		return new Vector2(float.Parse(vec[0]), float.Parse(vec[1]));
 	}
+
+	public int PixWidth() { return _pix_w; }
+	public int PixHeight() { return _pix_h; }
+	public int PixChan() { return _pix_chan; }
+	public bool CalibEnabled() { return _calib_enabled; }
+
+	public bool PixReady()
+	{
+		return _pix_w != 0 && _pix_h != 0 && _pix_chan != 0;
+	}
 }

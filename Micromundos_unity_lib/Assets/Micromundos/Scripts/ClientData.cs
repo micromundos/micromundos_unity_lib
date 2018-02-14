@@ -12,7 +12,8 @@ public class ClientData : MonoBehaviour {
 	public BinClient binClient;
 
 	public GameObject cross;
-	public GameObject canvas;
+	public GameObject calib;
+	public GameObject backendTex;
 
 
 	public static ClientData Instance
@@ -50,16 +51,20 @@ public class ClientData : MonoBehaviour {
 		msgClient = GetComponent<MsgClient> ();
 		binClient = GetComponent<BinClient> ();
 
+		//backendTex.SetActive (false);
+
 		DontDestroyOnLoad(this.gameObject);
 
 	}
 
 	void Update(){
 		msgClient.Process ();
+		if (msgClient.PixReady()) 
+			binClient.Process(msgClient.PixWidth(), msgClient.PixHeight(), msgClient.PixChan());
 	}
 
 	public void SetCrosses(){
-		RectTransform canvasT = canvas.transform as RectTransform;
+		RectTransform canvasT = calib.transform as RectTransform;
 		for (int i = 0; i < serverData.proj_pts.Length; i++) {
 			GameObject go = Instantiate (cross);
 
@@ -68,10 +73,10 @@ public class ClientData : MonoBehaviour {
 			rt.position = new Vector2 (canvasT.rect.width*serverData.proj_pts[i].x,canvasT.rect.height*serverData.proj_pts[i].y);
 		}
 
-		canvas.SetActive (false);
+		calib.SetActive (false);
 	}
 
 	public void ShowCalib(bool show){
-		canvas.SetActive (show);
+		calib.SetActive (show);
 	}
 }

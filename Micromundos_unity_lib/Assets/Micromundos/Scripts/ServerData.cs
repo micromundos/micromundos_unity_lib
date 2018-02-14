@@ -141,5 +141,6 @@ public class ServerData : MonoBehaviour {
 
 		ClientData.Instance.SetCrosses ();
 		ClientData.Instance.msgClient.init ();
+		ClientData.Instance.binClient.init ();
 	}
 }
