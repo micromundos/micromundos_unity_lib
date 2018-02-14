@@ -158,16 +158,12 @@ public class MsgClient : MonoBehaviour {
 	{
 		//TODO MsgClient: better deserialization
 		//int id = d2i(bdata[0]);
-		Vector2 loc = d2vec(bdata[1]);
-		Vector2 dir = d2vec(bdata[2]);
-		float angle = d2f(bdata[3]);
-		float radio = d2f(bdata[4]);
 
 		b.id = id;
-		b.loc = loc;
-		b.dir = dir;
-		b.angle = angle;
-		b.radio = radio;
+		b.loc = d2vec(bdata[1]);
+		b.dir = d2vec(bdata[2]);
+		b.angle = d2f(bdata[3]);
+		b.radio = d2f(bdata[4]);
 
 		//if (bdata.size() > 4)
 		//{
