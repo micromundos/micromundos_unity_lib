@@ -90,16 +90,19 @@ public class BinClient : MonoBehaviour {
 		}
 
 		if (tex == null)
-			tex = new Texture2D (pix_w, pix_h);
+			tex = new Texture2D (pix_w, pix_h,TextureFormat.Alpha8,false);
+			//tex = new Texture2D (pix_w, pix_h,TextureFormat.Alpha8,false);
 
-		Color[] c = new Color[pix_data.Length];
+		/*Color[] c = new Color[pix_data.Length];
 		for (int i = 0; i < pix_data.Length; i++)
-			c [i] = new Color(pix_data [i],pix_data [i],pix_data [i]);		
+			c [i] = new Color(pix_data [i],pix_data [i],pix_data [i]);*/
+
+		tex.LoadRawTextureData (pix_data);
 
 
 		//Debug.Log (pix_data.Length);
 
-		tex.SetPixels(c);
+		//tex.SetPixels(c);
 		//tex.LoadImage (pix_data);
 		tex.Apply ();
 		if (tex != null)			
