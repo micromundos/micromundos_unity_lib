@@ -13,9 +13,9 @@ public class BinClient : MonoBehaviour {
 
 	WebSocket ws;
 
-	public bool locked, received;
+	bool locked, received;
 	byte[] pix_data;
-	public Texture2D tex;
+	Texture2D tex;
 	public RawImage raw;
 
 	// Use this for initialization

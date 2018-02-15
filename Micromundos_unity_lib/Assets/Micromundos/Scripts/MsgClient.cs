@@ -12,11 +12,11 @@ public class MsgClient : MonoBehaviour {
 
 	WebSocket ws;
 
-	public bool locked, received;
-	public string message;
-	public int _pix_w, _pix_h, _pix_chan;
-	public List<Block> _blocks;
-	public bool _calib_enabled;
+	bool locked, received;
+	string message;
+	int _pix_w, _pix_h, _pix_chan;
+	List<Block> _blocks;
+	bool _calib_enabled;
 
 	// Use this for initialization
 	public void init () {
