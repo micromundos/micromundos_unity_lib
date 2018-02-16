@@ -7,6 +7,7 @@ using System.Threading;
 using WebSocketSharp;
 using System.IO;
 using System.Linq;
+using UnityEngine.UI;
 
 public class MsgClient : MonoBehaviour {
 
@@ -17,6 +18,8 @@ public class MsgClient : MonoBehaviour {
 	int _pix_w, _pix_h, _pix_chan;
 	List<Block> _blocks;
 	bool _calib_enabled;
+	public Text fps;
+	float lastTime;
 
 	// Use this for initialization
 	public void init () {
@@ -72,6 +75,10 @@ public class MsgClient : MonoBehaviour {
 	public bool Process(){
 		if (!received)
 			return false;
+		else {
+			fps.text = "fps: " + (1.0f / (Time.realtimeSinceStartup-lastTime));
+			lastTime = Time.realtimeSinceStartup;
+		}
 		Parse ();
 		received=false;
 		locked=false;
