@@ -16,7 +16,7 @@ public class MsgClient : MonoBehaviour {
 	bool locked, received;
 	string message;
 	int _pix_w, _pix_h, _pix_chan;
-	List<Block> _blocks;
+	public List<Block> _blocks;
 	bool _calib_enabled;
 	public Text fps;
 	float lastTime;
