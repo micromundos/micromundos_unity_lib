@@ -73,8 +73,8 @@ public class BinClient : MonoBehaviour {
 	}
 
 	public bool Process(int pix_w, int pix_h, int pix_chan){
-		if (!received)
-			return false;
+		/*if (!received)
+			return false;*/
 		Parse (pix_w,pix_h,pix_chan);
 		received=false;
 		locked=false;
@@ -113,4 +113,8 @@ public class BinClient : MonoBehaviour {
 	}
 
 
+	// Update is called once per frame
+	void Update () {
+
+	}
 }

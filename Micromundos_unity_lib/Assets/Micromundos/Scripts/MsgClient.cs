@@ -73,12 +73,12 @@ public class MsgClient : MonoBehaviour {
 	}
 
 	public bool Process(){
-		if (!received)
+		/*if (!received)
 			return false;
 		else {
 			fps.text = "fps: " + (1.0f / (Time.realtimeSinceStartup-lastTime));
 			lastTime = Time.realtimeSinceStartup;
-		}
+		}*/
 		Parse ();
 		received=false;
 		locked=false;
