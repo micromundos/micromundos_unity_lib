@@ -8,6 +8,8 @@ public class BinControl : MonoBehaviour {
 	Rigidbody rb;
 	Vector3 dir;
 
+	bool detected;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
@@ -22,9 +24,12 @@ public class BinControl : MonoBehaviour {
 			ClientData.Instance.GetObstacleAt (Camera.main.ScreenToWorldPoint(pos));
 		}*/
 
-		if (ClientData.Instance.GetObstacleAt (transform.position)) {
-			dir = new Vector3 (dir.x * -1, dir.y * -1 ,0f);
+		if (!detected && ClientData.Instance.GetObstacleAt (transform.position)) {
+			dir = new Vector3 (dir.x * -1, dir.y * -1, 0f);
 			transform.Rotate (180, 180, 0);
+			detected = true;
+		} else {
+			detected = false;
 		}
 
 		Vector3 mov = dir.normalized * speed * Time.deltaTime;
