@@ -81,46 +81,56 @@ public class ClientData : MonoBehaviour {
 	}
 
 	public Vector3 GetBlockRotation(int id){
-		return new Vector3 (0f, 0f, Mathf.Rad2Deg * ClientData.Instance.msgClient.GetBlock (id).angle_i);
+		return new Vector3 (0f, 0f, Mathf.Rad2Deg * msgClient.GetBlock (id).angle_i);
 	}
 
 	public Vector3 GetBlockPositionAtFarPlane(int id){
-		return Camera.main.ViewportToWorldPoint (new Vector3 (ClientData.Instance.msgClient.GetBlock (id).loc_i.x,
-			1f-ClientData.Instance.msgClient.GetBlock (id).loc_i.y,
+		return Camera.main.ViewportToWorldPoint (new Vector3 (msgClient.GetBlock (id).loc_i.x,
+			1f-msgClient.GetBlock (id).loc_i.y,
 			Camera.main.farClipPlane));		
 	}
 
 	public Vector3 GetBlockPositionAtNearPlane(int id){
-		return Camera.main.ViewportToWorldPoint (new Vector3 (ClientData.Instance.msgClient.GetBlock (id).loc_i.x,
-			1f-ClientData.Instance.msgClient.GetBlock (id).loc_i.y,
+		return Camera.main.ViewportToWorldPoint (new Vector3 (msgClient.GetBlock (id).loc_i.x,
+			1f-msgClient.GetBlock (id).loc_i.y,
 			Camera.main.nearClipPlane));		
 	}
 
 	public Vector3 GetBlockPositionAtZ(int id, float z){
-		return Camera.main.ViewportToWorldPoint (new Vector3 (ClientData.Instance.msgClient.GetBlock (id).loc_i.x,
-			1f-ClientData.Instance.msgClient.GetBlock (id).loc_i.y,
+		return Camera.main.ViewportToWorldPoint (new Vector3 (msgClient.GetBlock (id).loc_i.x,
+			1f-msgClient.GetBlock (id).loc_i.y,
 			z));		
 	}
 
 	public Vector3 GetBlockPositionAtFarPlane(int id, Camera cam){
-		return cam.ViewportToWorldPoint (new Vector3 (ClientData.Instance.msgClient.GetBlock (id).loc_i.x,
-			1f-ClientData.Instance.msgClient.GetBlock (id).loc_i.y,
+		return cam.ViewportToWorldPoint (new Vector3 (msgClient.GetBlock (id).loc_i.x,
+			1f-msgClient.GetBlock (id).loc_i.y,
 			cam.farClipPlane));		
 	}
 
 	public Vector3 GetBlockPositionAtNearPlane(int id, Camera cam){
-		return cam.ViewportToWorldPoint (new Vector3 (ClientData.Instance.msgClient.GetBlock (id).loc_i.x,
-			1f-ClientData.Instance.msgClient.GetBlock (id).loc_i.y,
+		return cam.ViewportToWorldPoint (new Vector3 (msgClient.GetBlock (id).loc_i.x,
+			1f-msgClient.GetBlock (id).loc_i.y,
 			cam.nearClipPlane));		
 	}
 
 	public Vector3 GetBlockPositionAtZ(int id, float z, Camera cam){
-		return cam.ViewportToWorldPoint (new Vector3 (ClientData.Instance.msgClient.GetBlock (id).loc_i.x,
-			1f-ClientData.Instance.msgClient.GetBlock (id).loc_i.y,
+		return cam.ViewportToWorldPoint (new Vector3 (msgClient.GetBlock (id).loc_i.x,
+			1f-msgClient.GetBlock (id).loc_i.y,
 			z));		
 	}
 
 	public bool IsBlock(int id){
-		return ClientData.Instance.msgClient.GetBlock (id) != null;
+		return msgClient.GetBlock (id) != null;
+	}
+
+	public Texture2D GetTexture(){
+		return binClient.GetTexture ();
+	}
+
+	public bool GetObstacleAt(Vector3 pos){
+		Vector3 uv = Camera.main.WorldToViewportPoint (pos);
+		//print (uv);
+		return binClient.IsPixelFill (uv.x, uv.y);
 	}
 }

@@ -117,4 +117,25 @@ public class BinClient : MonoBehaviour {
 	void Update () {
 
 	}
+
+	public Texture2D GetTexture(){
+		return tex;
+	}
+
+	public bool IsPixelFill(float x_, float y_){		
+		if (x_ < 0 || x_ > 1 || y_ < 0 || y_ > 1) {
+			return false;
+		} else {			
+			if (tex != null) {
+				int x = (int)(x_ * tex.width);
+				int y = (int)((1f - y_) * tex.height);
+				//print ("Tex x:"+x+" y:"+y);
+				Color c = tex.GetPixel (x,y);
+				//print (c.a==1);
+				return c.a==1;
+			} else {
+				return false;
+			}
+		}
+	}
 }

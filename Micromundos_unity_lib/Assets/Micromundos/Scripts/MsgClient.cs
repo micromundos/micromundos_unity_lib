@@ -139,6 +139,10 @@ public class MsgClient : MonoBehaviour {
 				UpdateBlock (id, bdata, blocks.Find (x => x.id == id));
 			}
 		}
+
+		for (int i = blocks.Count - 1; i >= 0; i--)
+			if (!cur.ContainsKey (blocks [i].id))
+				blocks.RemoveAt (i);
 	}
 
 	void MakeBlock(int id, string[] bdata, List<Block> block)

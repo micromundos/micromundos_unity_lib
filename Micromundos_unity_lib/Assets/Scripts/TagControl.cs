@@ -18,7 +18,7 @@ public class TagControl : MonoBehaviour {
 
 			transform.eulerAngles = ClientData.Instance.GetBlockRotation(id);
 
-			transform.localPosition = ClientData.Instance.GetBlockPositionAtFarPlane (id, cam);
+			transform.localPosition = ClientData.Instance.GetBlockPositionAtNearPlane (id, cam);
 
 		}
 	}
