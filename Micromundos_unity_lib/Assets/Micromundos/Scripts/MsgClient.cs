@@ -140,9 +140,12 @@ public class MsgClient : MonoBehaviour {
 			}
 		}
 
-		for (int i = blocks.Count - 1; i >= 0; i--)
-			if (!cur.ContainsKey (blocks [i].id))
+		for (int i = blocks.Count - 1; i >= 0; i--) {
+			if (!cur.ContainsKey (blocks [i].id)) {
+				ClientEvents.OnBlockExit(blocks [i].id);
 				blocks.RemoveAt (i);
+			}
+		}
 	}
 
 	void MakeBlock(int id, string[] bdata, List<Block> block)
@@ -158,6 +161,8 @@ public class MsgClient : MonoBehaviour {
 
 		//block[b.id] = b;
 		block.Add (b);
+
+		ClientEvents.OnBlockDetected (id);
 	}
 
 	void UpdateBlock(int id, string[] bdata, Block b){

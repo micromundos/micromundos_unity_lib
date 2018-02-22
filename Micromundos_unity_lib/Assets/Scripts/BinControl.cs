@@ -6,14 +6,17 @@ public class BinControl : MonoBehaviour {
 
 	public float speed;
 	Rigidbody rb;
-	Vector3 dir;
+	public Vector3 dir;
 
 	bool detected;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
-		dir = Vector3.right;
+		dir = Quaternion.Euler (transform.eulerAngles) * Vector3.right;
+		Vector3 mov = dir.normalized * speed * 0.5f;
+		transform.position = transform.position + mov;
+
 	}
 	
 	// Update is called once per frame
@@ -39,4 +42,7 @@ public class BinControl : MonoBehaviour {
 
 	}
 
+	void OnBecameInvisible() {
+		Destroy(gameObject);
+	}
 }
