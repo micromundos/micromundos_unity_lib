@@ -25,7 +25,7 @@ public class BinControl : MonoBehaviour {
 		}*/
 
 		if (!detected && ClientData.Instance.GetObstacleAt (transform.position)) {
-			dir = new Vector3 (dir.x * -1.1, dir.y * -1.1, 0f);
+			dir = new Vector3 (dir.x * -1.1f, dir.y * -1.1f, 0f);
 			transform.Rotate (180, 180, 0);
 			detected = true;
 		} else {
