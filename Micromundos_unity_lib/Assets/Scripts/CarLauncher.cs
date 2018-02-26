@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CarLauncher : MonoBehaviour {
 
-	public int id;
-	public Camera cam;
+	//public int id;
+	//public Camera cam;
 	public GameObject car;
 	public float interval;
 
@@ -17,18 +17,18 @@ public class CarLauncher : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (ClientData.Instance.IsBlock(id)) {
+		/*if (MicromundosManager.Instance.IsBlock(id)) {
 
-			transform.eulerAngles = ClientData.Instance.GetBlockRotation(id);
+			transform.eulerAngles = MicromundosManager.Instance.GetBlockRotation(id);
 
-			transform.localPosition = ClientData.Instance.GetBlockPositionAtNearPlane (id, cam);
+			transform.localPosition = MicromundosManager.Instance.GetBlockPositionAtNearPlane (id, cam);*/
 
 			t += Time.deltaTime;
 			if (t > interval) {
 				ShotCar ();
 				t=0;
 			}
-		}
+		//}
 	}
 
 	void ShotCar(){

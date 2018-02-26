@@ -5,12 +5,12 @@ using UnityEngine;
 public class CarOnRoad : MonoBehaviour {
 
 	BoxCollider bcol;
-	BinControl control;
+	CarControl control;
 
 	// Use this for initialization
 	void Start () {
 		bcol = GetComponent<BoxCollider> ();
-		control = GetComponent<BinControl> ();
+		control = GetComponent<CarControl> ();
 	}
 
 	void OnTriggerEnter(Collider other){

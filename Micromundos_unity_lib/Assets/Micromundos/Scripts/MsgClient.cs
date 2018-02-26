@@ -16,19 +16,26 @@ public class MsgClient : MonoBehaviour {
 	bool locked, received;
 	string message;
 	int _pix_w, _pix_h, _pix_chan;
-	public List<Block> _blocks;
+	//public List<Block> _blocks;
+	public Dictionary<int,Block> _blocks;
 	bool _calib_enabled;
+
+	[HideInInspector]
 	public Text fps;
 	float lastTime;
+
+	float reconnectDelay = 5;
+	float reconnectTime;
 
 	// Use this for initialization
 	public void init () {
 
-		string url = ClientData.Instance.serverData.ip + ":" + ClientData.Instance.serverData.port_msg + "/";
+		string url = MicromundosManager.Instance.serverData.GetIP() + ":" + MicromundosManager.Instance.serverData.GetPortMsg() + "/";
 
 		Debug.Log (url);
 
-		_blocks = new List<Block> ();
+		//_blocks = new List<Block> ();
+		_blocks = new Dictionary<int,Block> ();
 
 		ws = new WebSocket (url);
 
@@ -117,12 +124,13 @@ public class MsgClient : MonoBehaviour {
 			string[] cdata = cd[1].Split('#');
 			bool state = d2i(cdata[0])>0?true:false;
 			if (_calib_enabled != state)
-				ClientData.Instance.ShowCalib (state);
+				MicromundosManager.Instance.ShowCalib (state);
 			_calib_enabled = state;
 		}
 	}
 
-	void ParseBlocks(string[] bloques_str, List<Block> blocks){
+	//void ParseBlocks(string[] bloques_str, List<Block> blocks){
+	void ParseBlocks(string[] bloques_str, Dictionary<int, Block> blocks){
 		Dictionary<int,bool> cur = new Dictionary<int, bool> ();
 
 		foreach (string b in bloques_str)
@@ -132,23 +140,36 @@ public class MsgClient : MonoBehaviour {
 				continue;
 			int id = d2i(bdata[0]);
 			cur[id] = true;
-			//if (!block.ContainsKey(id))
-			if (!blocks.Contains (x => x.id == id)) {
+			if (!blocks.ContainsKey(id)){
+			//if (!blocks.Contains (x => x.id == id)) {
 				MakeBlock (id, bdata, blocks);
 			} else {
-				UpdateBlock (id, bdata, blocks.Find (x => x.id == id));
+				//UpdateBlock (id, bdata, blocks.Find (x => x.id == id));
+				UpdateBlock (id, bdata, blocks[id]);
 			}
 		}
 
-		for (int i = blocks.Count - 1; i >= 0; i--) {
-			if (!cur.ContainsKey (blocks [i].id)) {
-				ClientEvents.OnBlockExit(blocks [i].id);
-				blocks.RemoveAt (i);
+		Dictionary<int,Block>.KeyCollection k = blocks.Keys;
+		for (int i = blocks.Count - 1; i >= 0; i--) {			
+			//if (!cur.ContainsKey (blocks [i].id)) {
+			if (!cur.ContainsKey (k.ElementAt(i))) {
+				//ClientEvents.OnBlockExit(blocks [i].id);
+				//blocks.RemoveAt (i);
+				ClientEvents.OnBlockExit(k.ElementAt(i));
+				blocks.Remove(i);
 			}
 		}
+
+		/*foreach (int i in blocks.Keys) {
+			if (!cur.ContainsKey (i)) {
+				ClientEvents.OnBlockExit(i);
+				blocks.Remove(i);
+			}
+		}*/
 	}
 
-	void MakeBlock(int id, string[] bdata, List<Block> block)
+	//void MakeBlock(int id, string[] bdata, List<Block> block)
+	void MakeBlock(int id, string[] bdata, Dictionary<int,Block> block)
 	{
 
 		Block b = new Block();
@@ -159,8 +180,8 @@ public class MsgClient : MonoBehaviour {
 		b.dir_i = b.dir;
 		b.angle_i = b.angle;
 
-		//block[b.id] = b;
-		block.Add (b);
+		block[b.id] = b;
+		//block.Add (b);
 
 		ClientEvents.OnBlockDetected (id);
 	}
@@ -192,7 +213,15 @@ public class MsgClient : MonoBehaviour {
 
 	public Block GetBlock(int id)
 	{
-		return _blocks.Find (x => x.id == id);
+		//return _blocks.Find (x => x.id == id);
+		if (_blocks != null) {
+			if (_blocks.ContainsKey (id))
+				return _blocks [id];
+			else
+				return null;
+		} else {
+			return null;
+		}
 	}
 
 	void InterporlateBlock(string[] bdata, Block b)
@@ -212,7 +241,22 @@ public class MsgClient : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if (ws != null) {
+			if (ws.ReadyState != WebSocketState.Open) {
+				TryReconnect ();
+			}
+		}
+	}
 
+	void TryReconnect(){
+		if (reconnectDelay < reconnectTime) {
+			ws.Close ();
+			ws.Connect ();
+			Debug.Log ("try reconnect");
+			reconnectTime = 0;
+		} else {
+			reconnectTime += Time.deltaTime;
+		}			
 	}
 
 	int d2i(string d){

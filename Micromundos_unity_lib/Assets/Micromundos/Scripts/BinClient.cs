@@ -16,12 +16,14 @@ public class BinClient : MonoBehaviour {
 	bool locked, received;
 	byte[] pix_data;
 	Texture2D tex;
+
+	[HideInInspector]
 	public RawImage raw;
 
 	// Use this for initialization
 	public void init () {
 
-		string url = ClientData.Instance.serverData.ip + ":" + ClientData.Instance.serverData.port_bin + "/";
+		string url = MicromundosManager.Instance.serverData.GetIP() + ":" + MicromundosManager.Instance.serverData.GetPortBin() + "/";
 
 		Debug.Log (url);
 
@@ -112,11 +114,6 @@ public class BinClient : MonoBehaviour {
 		tex.loadData(pix);*/
 	}
 
-
-	// Update is called once per frame
-	void Update () {
-
-	}
 
 	public Texture2D GetTexture(){
 		return tex;

@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClientData : MonoBehaviour {
+public class MicromundosManager : MonoBehaviour {
 
 	const string PREFAB_PATH = "ClientData";    
-	static ClientData mInstance = null;
+	static MicromundosManager mInstance = null;
 
+	[HideInInspector]
 	public ServerData serverData;
+	[HideInInspector]
 	public MsgClient msgClient;
+	[HideInInspector]
 	public BinClient binClient;
 
 	public GameObject cross;
@@ -16,18 +19,18 @@ public class ClientData : MonoBehaviour {
 	public GameObject backendTex;
 
 
-	public static ClientData Instance
+	public static MicromundosManager Instance
 	{
 		get
 		{
 			if (mInstance == null)
 			{
-				mInstance = FindObjectOfType<ClientData>();
+				mInstance = FindObjectOfType<MicromundosManager>();
 
 				if (mInstance == null)
 				{
 					GameObject go = Instantiate(Resources.Load<GameObject>(PREFAB_PATH)) as GameObject;
-					mInstance = go.GetComponent<ClientData>();
+					mInstance = go.GetComponent<MicromundosManager>();
 					go.transform.localPosition = new Vector3(0, 0, 0);
 				}
 			}
@@ -84,6 +87,18 @@ public class ClientData : MonoBehaviour {
 		return new Vector3 (0f, 0f, Mathf.Rad2Deg * msgClient.GetBlock (id).angle_i);
 	}
 
+	public Vector3 GetBlockPosition(int id){
+		return Camera.main.ViewportToWorldPoint (new Vector3 (msgClient.GetBlock (id).loc_i.x,
+			1f-msgClient.GetBlock (id).loc_i.y,
+			10f));
+	}
+
+	public Vector3 GetBlockPosition(int id, Camera cam){
+			return cam.ViewportToWorldPoint (new Vector3 (msgClient.GetBlock (id).loc_i.x,
+			1f-msgClient.GetBlock (id).loc_i.y,
+			10f));
+	}
+
 	public Vector3 GetBlockPositionAtFarPlane(int id){
 		return Camera.main.ViewportToWorldPoint (new Vector3 (msgClient.GetBlock (id).loc_i.x,
 			1f-msgClient.GetBlock (id).loc_i.y,
@@ -128,7 +143,7 @@ public class ClientData : MonoBehaviour {
 		return binClient.GetTexture ();
 	}
 
-	public bool GetObstacleAt(Vector3 pos){
+	public bool isPointBlocked(Vector3 pos){
 		Vector3 uv = Camera.main.WorldToViewportPoint (pos);
 		//print (uv);
 		return binClient.IsPixelFill (uv.x, uv.y);

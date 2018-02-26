@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BinControl : MonoBehaviour {
+public class CarControl : MonoBehaviour {
 
 	public float speed;
 	Rigidbody rb;
@@ -29,7 +29,7 @@ public class BinControl : MonoBehaviour {
 		}*/
 
 		if (!onRoad) {
-			if (!detected && ClientData.Instance.GetObstacleAt (transform.position)) {
+			if (!detected && MicromundosManager.Instance.isPointBlocked (transform.position)) {
 				dir = new Vector3 (dir.x * -1, dir.y * -1, 0f);
 				transform.Rotate (180, 180, 0);
 				//speed *= 1.1f;

@@ -14,7 +14,7 @@ public class BackendClient : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		string url = ClientData.Instance.serverData.ip + ":" + ClientData.Instance.serverData.port_msg + "/";
+		string url = MicromundosManager.Instance.serverData.GetIP() + ":" + MicromundosManager.Instance.serverData.GetPortMsg() + "/";
 
 		Debug.Log (url);
 

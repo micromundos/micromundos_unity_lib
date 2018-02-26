@@ -7,24 +7,25 @@ using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using YamlDotNet.Samples.Helpers;
 
-
+[HideInInspector]
 public class ServerData : MonoBehaviour {
 
-	public string serverPath = "\\data\\server.yml";
-	public string configPath = "\\data\\config.yml";
+	string serverPath = "\\data\\server.yml";
+	string configPath = "\\data\\config.yml";
 
 
-	public int width;
-	public int height;
-	public int x;
-	public int y;
+	int width;
+	int height;
+	int x;
+	int y;
 
-	public string port_bin;
-	public string port_msg;
-	public string ip;
+	string port_bin;
+	string port_msg;
+	string ip;
 
-	public float resize_pixels;
+	float resize_pixels;
 
+	[HideInInspector]
 	public Vector2[] proj_pts;
 
 	[Serializable]
@@ -87,7 +88,7 @@ public class ServerData : MonoBehaviour {
 		public float[][] proj_pts { get; set; }
 	}
 
-	void Start () {
+	void Awake () {
 
 		#if UNITY_EDITOR
 		string filePath = Directory.GetParent (Application.dataPath).FullName;
@@ -139,8 +140,20 @@ public class ServerData : MonoBehaviour {
 		for(int i=0;i<configText.calib.proj_pts.Length;i++)
 			proj_pts[i] = new Vector2(configText.calib.proj_pts[i][0],configText.calib.proj_pts[i][1]);
 
-		ClientData.Instance.SetCrosses ();
-		ClientData.Instance.msgClient.init ();
-		ClientData.Instance.binClient.init ();
+		MicromundosManager.Instance.SetCrosses ();
+		MicromundosManager.Instance.msgClient.init ();
+		MicromundosManager.Instance.binClient.init ();
+	}
+
+	public string GetIP(){
+			return ip;
+	}
+
+	public string GetPortBin(){
+		return port_bin;
+	}
+
+	public string GetPortMsg(){
+		return port_msg;
 	}
 }
