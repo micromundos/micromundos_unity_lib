@@ -32,7 +32,6 @@ public class TagManager : MonoBehaviour {
 
 	void OnBlockDetected(int _id){
 		foreach (TagController tc in tagList) {
-			Debug.Log ("Tag detected: " + _id);
 			if (tc.id == _id) {
 				instances.Add (Instantiate (tc));
 				detectedIds [_id] = true;
