@@ -150,13 +150,13 @@ public class MsgClient : MonoBehaviour {
 		}
 
 		Dictionary<int,Block>.KeyCollection k = blocks.Keys;
-		for (int i = blocks.Count - 1; i >= 0; i--) {			
+		for (int i = k.Count - 1; i >= 0; i--) {			
 			//if (!cur.ContainsKey (blocks [i].id)) {
 			if (!cur.ContainsKey (k.ElementAt(i))) {
 				//ClientEvents.OnBlockExit(blocks [i].id);
 				//blocks.RemoveAt (i);
 				ClientEvents.OnBlockExit(k.ElementAt(i));
-				blocks.Remove(i);
+				blocks.Remove(k.ElementAt(i));
 			}
 		}
 
