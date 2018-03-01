@@ -1,0 +1,11 @@
+#YAML:1.0
+backend_server:
+  width: 600
+  height: 600
+  x: 0
+  y: 0
+network:
+  port_bin: 9999 
+  port_msg: 9998 
+  ip: ws://192.168.0.31
+resize_pixels: 0.5
