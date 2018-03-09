@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carId: 0
-  id: 0
+  id: 2
 --- !u!114 &114920096575722874
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -812,7 +812,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &587572356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -831,6 +831,11 @@ MonoBehaviour:
   - {fileID: 114101343450998688, guid: 76a5569500b8d644dbb2956bd6ee1d72, type: 2}
   - {fileID: 114004205390543572, guid: 1e3221380bb760d4c90afadc8da29988, type: 2}
   - {fileID: 114384973993848442, guid: 37dff20816059c9448f577f0c8f57414, type: 2}
+  - {fileID: 114371504463892004, guid: 0377f1d095ab2ca4db3a3cc63d771a6a, type: 2}
+  - {fileID: 114858343687140676, guid: c34d6aed330041f479dac9bed6e879cf, type: 2}
+  - {fileID: 114371579974460214, guid: 03bf6d29548d5434e970f2b39d6dcd0e, type: 2}
+  - {fileID: 114387986303005966, guid: 30e92501c13c5124387cb3d0d050a577, type: 2}
+  - {fileID: 114190886487937550, guid: e299f32c0f6783345af856c7fbe1dd40, type: 2}
 --- !u!114 &587572357
 MonoBehaviour:
   m_ObjectHideFlags: 0
