@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carId: 1
-  id: 6
+  id: 11
 --- !u!212 &212070130378436326
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carId: 0
-  id: 1
+  id: 12
 --- !u!212 &212171661573259708
 SpriteRenderer:
   m_ObjectHideFlags: 1
