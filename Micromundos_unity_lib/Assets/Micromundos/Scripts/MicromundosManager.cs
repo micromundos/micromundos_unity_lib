@@ -14,6 +14,7 @@ public class MicromundosManager : MonoBehaviour {
 	[HideInInspector]
 	public BinClient binClient;
 
+	public Camera mainCamera;
 	public GameObject cross;
 	public GameObject calib;
 	public GameObject backendTex;
@@ -56,7 +57,11 @@ public class MicromundosManager : MonoBehaviour {
 
 		//backendTex.SetActive (false);
 
-		DontDestroyOnLoad(this.gameObject);
+		if (mainCamera == null)
+			mainCamera = Camera.main;
+
+
+		//DontDestroyOnLoad(this.gameObject);
 
 	}
 
@@ -147,5 +152,13 @@ public class MicromundosManager : MonoBehaviour {
 		Vector3 uv = Camera.main.WorldToViewportPoint (pos);
 		//print (uv);
 		return binClient.IsPixelFill (uv.x, uv.y);
+	}
+
+	public void AddSyphon(){
+		#if UNITY_EDITOR_OSX
+			mainCamera.gameObject.AddComponent<SyphonServerTexture > ();
+		#elif UNITY_STANDALONE_OSX
+			mainCamera.gameObject.AddComponent<SyphonServerTexture > ();
+		#endif
 	}
 }

@@ -18,7 +18,8 @@ public class MsgClient : MonoBehaviour {
 	int _pix_w, _pix_h, _pix_chan;
 	//public List<Block> _blocks;
 	public Dictionary<int,Block> _blocks;
-	bool _calib_enabled;
+	bool _calib_enabled,_binary_enabled,_syphon_enabled;
+	public string _juego_active;
 
 	[HideInInspector]
 	public Text fps;
@@ -95,14 +96,19 @@ public class MsgClient : MonoBehaviour {
 	void Parse(){
 		string[] data = message.Split ('_');
 
-		if (data.Length > 0)
-			ParsePixData(data[0]);
-
-		if (data.Length > 1)
-			ParseCalibData (data [1]);
-
-		if (data.Length > 2)
-			ParseBlocks (data[2].Split(':')[1].Split(';'), _blocks);
+		foreach (string seccion in data) {
+			string[] s = seccion.Split (':');
+			if (s[0] == "pixels")
+				ParsePixData (seccion);
+			else if (s[0] == "net")
+				ParseNetData (seccion);
+			else if (s[0] == "calib")
+				ParseCalibData (seccion);
+			else if (s[0] == "bloques")
+				ParseBlocks (seccion.Split (':') [1].Split (';'), _blocks);
+			else if (s[0] == "juegos")
+				ParseJuegos (seccion);
+		}
 		
 	}
 
@@ -117,6 +123,17 @@ public class MsgClient : MonoBehaviour {
 		}
 	}
 
+	void ParseNetData(string data_str){
+		string[] data = data_str.Split(':');
+		if (data.Length > 1){
+			string[] d = data[1].Split('#');
+			_binary_enabled = d2i(d[0])>0?true:false;
+			_syphon_enabled = d2i(d[1])>0?true:false;
+			if (_syphon_enabled)
+				MicromundosManager.Instance.AddSyphon ();
+		}
+	}
+
 	void ParseCalibData(string calibStr){
 		string[] cd = calibStr.Split(':');
 		if (cd.Length > 1)
@@ -127,6 +144,12 @@ public class MsgClient : MonoBehaviour {
 				MicromundosManager.Instance.ShowCalib (state);
 			_calib_enabled = state;
 		}
+	}
+
+	void ParseJuegos(string juegosStr){
+		string[] active = juegosStr.Split(':');
+		if (active.Length > 1)
+			_juego_active = active [1].Split('=')[1];
 	}
 
 	//void ParseBlocks(string[] bloques_str, List<Block> blocks){
@@ -277,6 +300,8 @@ public class MsgClient : MonoBehaviour {
 	public int PixHeight() { return _pix_h; }
 	public int PixChan() { return _pix_chan; }
 	public bool CalibEnabled() { return _calib_enabled; }
+	public bool SyphonEnabled() { return _syphon_enabled; }
+	public bool BinaryEnabled() { return _binary_enabled; }
 
 	public bool PixReady()
 	{
