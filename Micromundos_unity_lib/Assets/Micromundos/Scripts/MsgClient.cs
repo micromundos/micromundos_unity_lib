@@ -128,9 +128,12 @@ public class MsgClient : MonoBehaviour {
 		if (data.Length > 1){
 			string[] d = data[1].Split('#');
 			_binary_enabled = d2i(d[0])>0?true:false;
-			_syphon_enabled = d2i(d[1])>0?true:false;
-			if (_syphon_enabled)
-				MicromundosManager.Instance.AddSyphon ();
+			bool syphon = d2i(d[1])>0?true:false;
+			if (syphon) {
+				if (!_syphon_enabled)
+					MicromundosManager.Instance.AddSyphon ();
+				_syphon_enabled = syphon;
+			}
 		}
 	}
 
