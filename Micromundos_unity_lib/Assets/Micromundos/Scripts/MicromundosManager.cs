@@ -159,10 +159,10 @@ public class MicromundosManager : MonoBehaviour {
 	public void AddSyphon(){
 
 		#if UNITY_EDITOR_OSX
-			mainCamera.gameObject.AddComponent<Funnel> ();
+			mainCamera.gameObject.AddComponent<Funnel.Funnel> ();
 			
 		#elif UNITY_STANDALONE_OSX
-			mainCamera.gameObject.AddComponent<Funnel> ();
+			mainCamera.gameObject.AddComponent<Funnel.Funnel> ();
 			
 		#endif
 	}
