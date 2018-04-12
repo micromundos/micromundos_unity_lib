@@ -157,22 +157,12 @@ public class MicromundosManager : MonoBehaviour {
 
 	public void AddSyphon(){
 
-
-
 		#if UNITY_EDITOR_OSX
-			mainCamera.gameObject.AddComponent<Syphon > ();
-			mainCamera.gameObject.AddComponent<SyphonServerTexture > ();
-			mainCamera.gameObject.AddComponent<SyphonClientTexture > ();
-			SyphonClientTexture sct = mainCamera.gameObject.GetComponent<SyphonClientTexture> ();
-			sct.clientAppName = serverData.GetSyphonClientName();
-			sct.clientName = serverData.GetSyphonClientName();
+			mainCamera.gameObject.AddComponent<Funnel> ();
+			
 		#elif UNITY_STANDALONE_OSX
-			mainCamera.gameObject.AddComponent<Syphon > ();
-			mainCamera.gameObject.AddComponent<SyphonServerTexture > ();
-			mainCamera.gameObject.AddComponent<SyphonClientTexture > ();
-			SyphonClientTexture sct = mainCamera.gameObject.GetComponent<SyphonClientTexture> ();
-			sct.clientAppName = serverData.GetSyphonClientName();
-			sct.clientName = serverData.GetSyphonClientName();
+			mainCamera.gameObject.AddComponent<Funnel> ();
+			
 		#endif
 	}
 }
