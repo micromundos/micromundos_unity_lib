@@ -71,6 +71,7 @@ public class MicromundosManager : MonoBehaviour {
 		msgClient.Process ();
 		if (msgClient.PixReady()) 
 			binClient.Process(msgClient.PixWidth(), msgClient.PixHeight(), msgClient.PixChan());
+
 	}
 
 	public void SetCrosses(){
@@ -157,16 +158,17 @@ public class MicromundosManager : MonoBehaviour {
 	}
 
 	public void AddSyphon(){
-
+		
 		#if UNITY_EDITOR_OSX
 			//mainCamera.gameObject.AddComponent<Funnel.Funnel> ();
 			mainCamera.gameObject.AddComponent<Syphon> ();
-			mainCamera.gameObject.AddComponent<SyphonServerTexture> ();
+			mainCamera.gameObject.GetComponent<Syphon> ().runInEditMode = true;
+			//mainCamera.gameObject.AddComponent<SyphonServerTexture> ();
 			
 		#elif UNITY_STANDALONE_OSX
 			//mainCamera.gameObject.AddComponent<Funnel.Funnel> ();
 			mainCamera.gameObject.AddComponent<Syphon> ();
-			mainCamera.gameObject.AddComponent<SyphonServerTexture> ();
+			//mainCamera.gameObject.AddComponent<SyphonServerTexture> ();
 			
 		#endif
 	}
