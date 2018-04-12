@@ -24,6 +24,8 @@ public class ServerData : MonoBehaviour {
 	string port_msg;
 	string ip;
 
+	string syphon_client;
+
 	float resize_pixels;
 
 	[HideInInspector]
@@ -69,6 +71,8 @@ public class ServerData : MonoBehaviour {
 		port_msg = N["backend"]["port_msg"];
 		ip = N["backend"]["ip"];
 
+		syphon_client = N["projector"]["syphon"];
+
 		proj_pts = new Vector2[N["calib"]["proj_pts"].AsArray.Count];
 		for(int i=0;i<N["calib"]["proj_pts"].AsArray.Count;i++)
 		proj_pts[i] = new Vector2(N["calib"]["proj_pts"].AsArray[i].AsArray[0].AsFloat,N["calib"]["proj_pts"].AsArray[i].AsArray[1].AsFloat);
@@ -88,5 +92,9 @@ public class ServerData : MonoBehaviour {
 
 	public string GetPortMsg(){
 		return port_msg;
+	}
+
+	public string GetSyphonClientName(){
+		return syphon_client;
 	}
 }

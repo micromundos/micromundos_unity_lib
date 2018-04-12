@@ -14,6 +14,7 @@ public class MicromundosManager : MonoBehaviour {
 	[HideInInspector]
 	public BinClient binClient;
 
+	public string appName;
 	public Camera mainCamera;
 	public GameObject cross;
 	public GameObject calib;
@@ -155,6 +156,11 @@ public class MicromundosManager : MonoBehaviour {
 	}
 
 	public void AddSyphon(){
+
+		SyphonClientTexture sct = GetComponent<SyphonClientTexture> ();
+		sct.clientAppName = appName;
+		sct.clientName = serverData.GetSyphonClientName();
+
 		#if UNITY_EDITOR_OSX
 			mainCamera.gameObject.AddComponent<Syphon > ();
 			mainCamera.gameObject.AddComponent<SyphonServerTexture > ();
