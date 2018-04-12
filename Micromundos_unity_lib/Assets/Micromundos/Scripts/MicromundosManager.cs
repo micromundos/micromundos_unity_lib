@@ -158,7 +158,7 @@ public class MicromundosManager : MonoBehaviour {
 	public void AddSyphon(){
 
 		SyphonClientTexture sct = GetComponent<SyphonClientTexture> ();
-		sct.clientAppName = appName;
+		sct.clientAppName = serverData.GetSyphonClientName();
 		sct.clientName = serverData.GetSyphonClientName();
 
 		#if UNITY_EDITOR_OSX
