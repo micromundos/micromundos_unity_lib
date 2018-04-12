@@ -156,8 +156,10 @@ public class MicromundosManager : MonoBehaviour {
 
 	public void AddSyphon(){
 		#if UNITY_EDITOR_OSX
+			mainCamera.gameObject.AddComponent<Syphon > ();
 			mainCamera.gameObject.AddComponent<SyphonServerTexture > ();
 		#elif UNITY_STANDALONE_OSX
+			mainCamera.gameObject.AddComponent<Syphon > ();
 			mainCamera.gameObject.AddComponent<SyphonServerTexture > ();
 		#endif
 	}
