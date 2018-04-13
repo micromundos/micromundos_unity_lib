@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using Funnel;
+using Funnel;
 
 public class MicromundosManager : MonoBehaviour {
 
@@ -160,14 +160,14 @@ public class MicromundosManager : MonoBehaviour {
 	public void AddSyphon(){
 		
 		#if UNITY_EDITOR_OSX
-			//mainCamera.gameObject.AddComponent<Funnel.Funnel> ();
-			mainCamera.gameObject.AddComponent<Syphon> ();
-			mainCamera.gameObject.GetComponent<Syphon> ().runInEditMode = true;
+			mainCamera.gameObject.AddComponent<Funnel.Funnel> ();
+			//mainCamera.gameObject.AddComponent<Syphon> ();
+			//mainCamera.gameObject.GetComponent<Syphon> ().runInEditMode = true;
 			//mainCamera.gameObject.AddComponent<SyphonServerTexture> ();
 			
 		#elif UNITY_STANDALONE_OSX
-			//mainCamera.gameObject.AddComponent<Funnel.Funnel> ();
-			mainCamera.gameObject.AddComponent<Syphon> ();
+			mainCamera.gameObject.AddComponent<Funnel.Funnel> ();
+			//mainCamera.gameObject.AddComponent<Syphon> ();
 			//mainCamera.gameObject.AddComponent<SyphonServerTexture> ();
 			
 		#endif
