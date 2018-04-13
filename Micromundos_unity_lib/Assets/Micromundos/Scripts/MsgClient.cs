@@ -151,8 +151,13 @@ public class MsgClient : MonoBehaviour {
 
 	void ParseJuegos(string juegosStr){
 		string[] active = juegosStr.Split(':');
-		if (active.Length > 1)
-			_juego_active = active [1].Split('=')[1];
+		if (active.Length > 1) {
+			string j = active [1].Split ('=') [1];
+			if (j != _juego_active) {
+				_juego_active = j;
+				MicromundosManager.Instance.SetActiveSyphonServer (_juego_active);
+			}
+		}
 	}
 
 	//void ParseBlocks(string[] bloques_str, List<Block> blocks){
