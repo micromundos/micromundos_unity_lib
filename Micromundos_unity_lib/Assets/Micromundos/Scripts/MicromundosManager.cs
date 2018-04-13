@@ -177,7 +177,8 @@ public class MicromundosManager : MonoBehaviour {
 		#endif
 	}
 
-	public void SetActiveSyphonServer(string active){		
+	public void SetActiveSyphonServer(string active){
+		Debug.Log (appName + "==" + active);
 		mainCamera.gameObject.GetComponent<Funnel.Funnel> ().enabled=active==appName?true:false;
 	}
 }
