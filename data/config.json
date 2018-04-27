@@ -15,7 +15,7 @@
 	"backend":{
 		"port_bin": 9999,
 		"port_msg": 9998,
-		"ip": "ws://192.168.0.17",
+		"ip": "ws://192.168.0.42",
   		"syphon": "backend_syphon"
 	},
 	"juegos":{

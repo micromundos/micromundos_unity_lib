@@ -27,6 +27,7 @@ public class MsgClient : MonoBehaviour {
 
 	float reconnectDelay = 5;
 	float reconnectTime;
+	public WebSocketState estado;
 
 	// Use this for initialization
 	public void init () {
@@ -45,7 +46,9 @@ public class MsgClient : MonoBehaviour {
 		ws.OnError += OnError;
 		ws.OnClose += OnClose;
 
-		ws.Connect ();
+		//ws.Connect ();
+		//ws.ConnectAsync();
+		StartCoroutine(TryReconnect ());
 	}
 
 	void OnDestroy(){
@@ -273,21 +276,24 @@ public class MsgClient : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (ws != null) {
+			estado = ws.ReadyState;
 			if (ws.ReadyState != WebSocketState.Open) {
-				TryReconnect ();
+				StartCoroutine(TryReconnect ());
 			}
 		}
 	}
 
-	void TryReconnect(){
+	IEnumerator TryReconnect(){
 		if (reconnectDelay < reconnectTime) {
 			ws.Close ();
-			ws.Connect ();
+			//ws.Connect ();
+			ws.ConnectAsync();
 			Debug.Log ("try reconnect");
 			reconnectTime = 0;
 		} else {
 			reconnectTime += Time.deltaTime;
-		}			
+		}
+		yield return null;
 	}
 
 	int d2i(string d){
