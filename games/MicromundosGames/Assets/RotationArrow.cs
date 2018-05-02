@@ -7,7 +7,7 @@ public class RotationArrow : TagController {
 	public float speed;
 	void Start()
 	{
-		GetComponent<Colorate> ().SetOn (carId);
+		GetComponent<Colorate> ().SetOn (id);
 	}
 	void Update () {
 		Vector3 rot = transform.localEulerAngles;

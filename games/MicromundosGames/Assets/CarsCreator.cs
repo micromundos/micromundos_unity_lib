@@ -6,11 +6,11 @@ public class CarsCreator : TagController {
 
 	void Start () {
 		Loop ();
-		GetComponent<Colorate> ().SetOn (carId);
+		GetComponent<Colorate> ().SetOn (id);
 	}
 	void Loop()
 	{
-		Game.Instance.AddCar (transform, carId);
+		Game.Instance.AddCar (transform, id);
 		Invoke ("Loop", 1);
 	}
 }

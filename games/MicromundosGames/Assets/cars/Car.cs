@@ -54,7 +54,7 @@ public class Car : MonoBehaviour {
 		} else if (rotationArrow != null) {
 			rotatingLoop.speed = rotationArrow.speed;
 			rotatingLoop.enabled = true;
-		} else if (bomb != null && bomb.carId == id)
+		} else if (bomb != null && bomb.id== id)
 			Game.Instance.RemoveCar (this);
 	}
 	void OnTriggerExit2D(Collider2D other)

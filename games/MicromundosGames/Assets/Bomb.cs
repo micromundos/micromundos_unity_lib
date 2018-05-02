@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Bomb : TagController {
 
+
 	void Start()
 	{
-		GetComponent<Colorate> ().SetOn (carId);
+		GetComponent<Colorate> ().SetOn (id);
 	}
 }

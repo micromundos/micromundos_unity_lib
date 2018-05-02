@@ -9,13 +9,13 @@ public class Flag : TagController {
 
 	void Start()
 	{
-		GetComponent<Colorate> ().SetOn (carId);
+		GetComponent<Colorate> ().SetOn (id);
 	}
 	public void SetOn(int _carId)
 	{
-		if(carId != _carId) return;
+		if(id != _carId) return;
 		NewCar ();
-		GetComponent<Colorate> ().SetOn (carId);
+		GetComponent<Colorate> ().SetOn (id);
 	}
 	void NewCar () {
 		num++;

@@ -5,17 +5,23 @@ using UnityEngine;
 public class Colorizer : TagController {
 	 
 	void Start () {		
-		GetComponent<Colorate> ().SetOn (carId);
+		GetComponent<Colorate> ().SetOn (id);
 	}
 	void OnTriggerEnter2D(Collider2D other)
 	{		
-		print (other);
 		TagController tc = other.GetComponent<TagController> ();
 		if (tc == null)
 			return;
 		if (other.GetComponent<Colorizer> ())
 			return;
 		
-		tc.SetCarID (carId);
+		SetCarID (id);
+	}
+	void SetCarID(int _carId)
+	{
+		this.id = _carId;
+		Colorate c = GetComponent<Colorate> ();
+		if (c != null)
+			c.SetOn (id);			
 	}
 }

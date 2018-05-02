@@ -5,6 +5,6 @@ using UnityEngine;
 public class Turn : TagController {
 	void Start()
 	{
-		GetComponent<Colorate> ().SetOn (carId);
+		GetComponent<Colorate> ().SetOn (id);
 	}
 }
