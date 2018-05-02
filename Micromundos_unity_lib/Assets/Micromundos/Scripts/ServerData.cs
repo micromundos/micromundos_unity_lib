@@ -11,8 +11,17 @@ using SimpleJSON;
 [HideInInspector]
 public class ServerData : MonoBehaviour {
 
-	string serverPath = "\\data\\backend.json";
-	string configPath = "\\data\\config.json";
+	#if UNITY_EDITOR
+		string serverPath = "\\data\\backend.json";
+		string configPath = "\\data\\config.json";
+	#elif UNITY_STANDALONE_WIN
+		string serverPath = "\\data\\backend.json";
+		string configPath = "\\data\\config.json";
+	#elif UNITY_STANDALONE_OSX
+		string serverPath = "/data/backend.json";
+		string configPath = "/data/config.json";
+	#endif
+
 
 
 	int width;

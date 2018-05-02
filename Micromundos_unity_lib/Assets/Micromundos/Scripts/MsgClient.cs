@@ -27,7 +27,7 @@ public class MsgClient : MonoBehaviour {
 
 	float reconnectDelay = 5;
 	float reconnectTime;
-	public WebSocketState estado;
+	public WebSocketState websocketState;
 
 	// Use this for initialization
 	public void init () {
@@ -276,7 +276,7 @@ public class MsgClient : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (ws != null) {
-			estado = ws.ReadyState;
+			websocketState = ws.ReadyState;
 			if (ws.ReadyState != WebSocketState.Open) {
 				StartCoroutine(TryReconnect ());
 			}
