@@ -12,6 +12,7 @@ public class Game : MonoBehaviour {
 	public Color color_car_id_2;
 
 	public List<Car> cars;
+	public Transform carsContainer;
 
 	public static Game Instance
 	{
@@ -38,10 +39,12 @@ public class Game : MonoBehaviour {
 	}
 	public void AddCar(Transform parent, int carId) {
 		Car car = Instantiate (car_to_instantiate);
+		car.transform.SetParent (carsContainer);
 		car.transform.localEulerAngles = parent.localEulerAngles;
 		car.transform.localPosition = parent.position;
 		car.SetID( carId );
 		cars.Add (car);
+
 	}
 	public void RemoveCar(Car car)
 	{

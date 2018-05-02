@@ -11,7 +11,10 @@ public class MoveObject : MonoBehaviour {
 	void Start () {
 
 	}
-
+	public void ResetSpeed(float newSpeed)
+	{
+		speed = newSpeed;
+	}
 	public void OnUpdate()
 	{
 		speed += acceleration*Time.deltaTime;

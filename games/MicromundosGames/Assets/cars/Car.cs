@@ -9,6 +9,8 @@ public class Car : MonoBehaviour {
 	public MoveObject move;
 	public TurnObject turnObject;
 	public RotatingLoop rotatingLoop;
+	public GameObject targetRight;
+	public GameObject targetLeft;
 
 	public enum states
 	{
@@ -22,6 +24,7 @@ public class Car : MonoBehaviour {
 		this.id = id;
 	}
 	void Update () {
+		CheckHits ();
 		if (state == states.ROTATING)
 			turnObject.OnUpdate ();
 		else if (state == states.MOVE)
@@ -30,8 +33,7 @@ public class Car : MonoBehaviour {
 			Game.Instance.RemoveCar (this);
 	}
 	void OnTriggerEnter2D(Collider2D other)
-	{		
-		
+	{				
 		Flag flag = other.GetComponent<Flag> ();
 		if (flag != null)
 			flag.SetOn (id);
@@ -70,5 +72,34 @@ public class Car : MonoBehaviour {
 	{
 		move.SetSpeed (0.5f);
 		state = states.ROTATING;
+	}
+	bool madeFirstCheck;
+	void CheckHits()
+	{
+		bool isAvailablePoint = MicromundosManager.Instance.isPointBlocked (transform.position);
+		//print (madeFirstCheck + " isBlocked: " + isAvailablePoint);
+		if (madeFirstCheck == false && !isAvailablePoint) {
+			Game.Instance.RemoveCar (this);
+			return;
+		}
+		madeFirstCheck = true;
+
+		bool rightIsAvailable = MicromundosManager.Instance.isPointBlocked (targetRight.transform.position);
+		bool leftIsAvailable = MicromundosManager.Instance.isPointBlocked (targetLeft.transform.position);
+
+		if (!rightIsAvailable)
+			Turn (true);
+		else if (!leftIsAvailable)
+			Turn (false);
+	}
+	void Turn(bool turnLeft)
+	{
+		move.ResetSpeed (0.2f);
+		Vector3 rot = transform.localEulerAngles;
+		if (turnLeft)
+			rot.z += 4;
+		else
+			rot.z -= 4;
+		transform.localEulerAngles = rot;
 	}
 }
