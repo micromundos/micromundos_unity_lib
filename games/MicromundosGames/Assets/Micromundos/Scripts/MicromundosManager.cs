@@ -145,7 +145,8 @@ public class MicromundosManager : MonoBehaviour {
 
 	public bool isPointBlocked(Vector3 pos){
 		Vector3 uv = Camera.main.WorldToViewportPoint (pos);
-		//print (uv);
-		return binClient.IsPixelFill (uv.x, uv.y);
+		bool isBlocked = binClient.IsPixelFill (uv.x, uv.y);
+		//print ("isBlocked: " + isBlocked + " position: " + pos);
+		return isBlocked;
 	}
 }
