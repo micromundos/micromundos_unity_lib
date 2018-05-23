@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Funnel;
 
 public class MicromundosManager : MonoBehaviour {
 
@@ -14,6 +15,8 @@ public class MicromundosManager : MonoBehaviour {
 	[HideInInspector]
 	public BinClient binClient;
 
+	public string appName;
+	public Camera mainCamera;
 	public GameObject cross;
 	public GameObject calib;
 	public GameObject backendTex;
@@ -56,7 +59,11 @@ public class MicromundosManager : MonoBehaviour {
 
 		//backendTex.SetActive (false);
 
-		DontDestroyOnLoad(this.gameObject);
+		if (mainCamera == null)
+			mainCamera = Camera.main;
+
+
+		//DontDestroyOnLoad(this.gameObject);
 
 	}
 
@@ -64,6 +71,7 @@ public class MicromundosManager : MonoBehaviour {
 		msgClient.Process ();
 		if (msgClient.PixReady()) 
 			binClient.Process(msgClient.PixWidth(), msgClient.PixHeight(), msgClient.PixChan());
+
 	}
 
 	public void SetCrosses(){
@@ -145,8 +153,35 @@ public class MicromundosManager : MonoBehaviour {
 
 	public bool isPointBlocked(Vector3 pos){
 		Vector3 uv = Camera.main.WorldToViewportPoint (pos);
-		bool isBlocked = binClient.IsPixelFill (uv.x, uv.y);
-		//print ("isBlocked: " + isBlocked + " position: " + pos);
-		return isBlocked;
+		//print (uv);
+		return binClient.IsPixelFill (uv.x, uv.y);
+	}
+
+	public void AddSyphon(){
+		
+		#if UNITY_EDITOR_OSX
+			mainCamera.gameObject.AddComponent<Funnel.Funnel> ();
+			mainCamera.gameObject.name = serverData.GetSyphonClientName ();
+			mainCamera.gameObject.GetComponent<Funnel.Funnel> ().enabled = false;
+			//mainCamera.gameObject.AddComponent<Syphon> ();
+			//mainCamera.gameObject.GetComponent<Syphon> ().runInEditMode = true;
+			//mainCamera.gameObject.AddComponent<SyphonServerTexture> ();
+			
+		#elif UNITY_STANDALONE_OSX
+			mainCamera.gameObject.AddComponent<Funnel.Funnel> ();
+			mainCamera.gameObject.name = serverData.GetSyphonClientName ();
+			mainCamera.gameObject.GetComponent<Funnel.Funnel> ().enabled = false;
+			//mainCamera.gameObject.AddComponent<Syphon> ();
+			//mainCamera.gameObject.AddComponent<SyphonServerTexture> ();
+			
+		#endif
+	}
+
+	public void SetActiveSyphonServer(string active){
+		Debug.Log (appName + "==" + active);
+		bool enabled = active == appName ? true : false;
+		Time.timeScale = enabled ? 1 : 0;
+		mainCamera.gameObject.GetComponent<Funnel.Funnel> ().enabled=enabled;
+
 	}
 }

@@ -20,6 +20,10 @@ public class BinClient : MonoBehaviour {
 	[HideInInspector]
 	public RawImage raw;
 
+	float reconnectDelay = 5;
+	float reconnectTime;
+	public WebSocketState websocketState;
+
 	// Use this for initialization
 	public void init () {
 
@@ -34,7 +38,9 @@ public class BinClient : MonoBehaviour {
 		ws.OnError += OnError;
 		ws.OnClose += OnClose;
 
-		ws.Connect ();
+		//ws.Connect ();
+		//ws.ConnectAsync();
+		StartCoroutine(TryReconnect ());
 	}
 
 	void OnDestroy(){
@@ -72,6 +78,29 @@ public class BinClient : MonoBehaviour {
 
 	void OnClose(object sender, CloseEventArgs e){
 		string msg = String.Format ("WebSocket Close ({0})", e.Code) + " : " + e.Reason;
+	}
+
+	// Update is called once per frame
+	void Update () {
+		if (ws != null) {
+			websocketState = ws.ReadyState;
+			if (ws.ReadyState != WebSocketState.Open) {
+				StartCoroutine(TryReconnect ());
+			}
+		}
+	}
+
+	IEnumerator TryReconnect(){
+		if (reconnectDelay < reconnectTime) {
+			ws.Close ();
+			//ws.Connect ();
+			ws.ConnectAsync();
+			Debug.Log ("try reconnect");
+			reconnectTime = 0;
+		} else {
+			reconnectTime += Time.deltaTime;
+		}
+		yield return null;
 	}
 
 	public bool Process(int pix_w, int pix_h, int pix_chan){

@@ -18,7 +18,8 @@ public class MsgClient : MonoBehaviour {
 	int _pix_w, _pix_h, _pix_chan;
 	//public List<Block> _blocks;
 	public Dictionary<int,Block> _blocks;
-	bool _calib_enabled;
+	bool _calib_enabled,_binary_enabled,_syphon_enabled;
+	public string _juego_active;
 
 	[HideInInspector]
 	public Text fps;
@@ -26,6 +27,7 @@ public class MsgClient : MonoBehaviour {
 
 	float reconnectDelay = 5;
 	float reconnectTime;
+	public WebSocketState estado;
 
 	// Use this for initialization
 	public void init () {
@@ -44,7 +46,9 @@ public class MsgClient : MonoBehaviour {
 		ws.OnError += OnError;
 		ws.OnClose += OnClose;
 
-		ws.Connect ();
+		//ws.Connect ();
+		//ws.ConnectAsync();
+		StartCoroutine(TryReconnect ());
 	}
 
 	void OnDestroy(){
@@ -95,14 +99,19 @@ public class MsgClient : MonoBehaviour {
 	void Parse(){
 		string[] data = message.Split ('_');
 
-		if (data.Length > 0)
-			ParsePixData(data[0]);
-
-		if (data.Length > 1)
-			ParseCalibData (data [1]);
-
-		if (data.Length > 2)
-			ParseBlocks (data[2].Split(':')[1].Split(';'), _blocks);
+		foreach (string seccion in data) {
+			string[] s = seccion.Split (':');
+			if (s[0] == "pixels")
+				ParsePixData (seccion);
+			else if (s[0] == "net")
+				ParseNetData (seccion);
+			else if (s[0] == "calib")
+				ParseCalibData (seccion);
+			else if (s[0] == "bloques")
+				ParseBlocks (seccion.Split (':') [1].Split (';'), _blocks);
+			else if (s[0] == "juegos")
+				ParseJuegos (seccion);
+		}
 		
 	}
 
@@ -117,6 +126,20 @@ public class MsgClient : MonoBehaviour {
 		}
 	}
 
+	void ParseNetData(string data_str){
+		string[] data = data_str.Split(':');
+		if (data.Length > 1){
+			string[] d = data[1].Split('#');
+			_binary_enabled = d2i(d[0])>0?true:false;
+			bool syphon = d2i(d[1])>0?true:false;
+			if (syphon) {
+				if (!_syphon_enabled)
+					MicromundosManager.Instance.AddSyphon ();
+				_syphon_enabled = syphon;
+			}
+		}
+	}
+
 	void ParseCalibData(string calibStr){
 		string[] cd = calibStr.Split(':');
 		if (cd.Length > 1)
@@ -126,6 +149,17 @@ public class MsgClient : MonoBehaviour {
 			if (_calib_enabled != state)
 				MicromundosManager.Instance.ShowCalib (state);
 			_calib_enabled = state;
+		}
+	}
+
+	void ParseJuegos(string juegosStr){
+		string[] active = juegosStr.Split(':');
+		if (active.Length > 1) {
+			string j = active [1].Split ('=') [1];
+			if (j != _juego_active) {
+				_juego_active = j;
+				MicromundosManager.Instance.SetActiveSyphonServer (_juego_active);
+			}
 		}
 	}
 
@@ -242,21 +276,24 @@ public class MsgClient : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (ws != null) {
+			estado = ws.ReadyState;
 			if (ws.ReadyState != WebSocketState.Open) {
-				TryReconnect ();
+				StartCoroutine(TryReconnect ());
 			}
 		}
 	}
 
-	void TryReconnect(){
+	IEnumerator TryReconnect(){
 		if (reconnectDelay < reconnectTime) {
 			ws.Close ();
-			ws.Connect ();
+			//ws.Connect ();
+			ws.ConnectAsync();
 			Debug.Log ("try reconnect");
 			reconnectTime = 0;
 		} else {
 			reconnectTime += Time.deltaTime;
-		}			
+		}
+		yield return null;
 	}
 
 	int d2i(string d){
@@ -277,6 +314,8 @@ public class MsgClient : MonoBehaviour {
 	public int PixHeight() { return _pix_h; }
 	public int PixChan() { return _pix_chan; }
 	public bool CalibEnabled() { return _calib_enabled; }
+	public bool SyphonEnabled() { return _syphon_enabled; }
+	public bool BinaryEnabled() { return _binary_enabled; }
 
 	public bool PixReady()
 	{

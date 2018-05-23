@@ -15,11 +15,11 @@
 	"backend":{
 		"port_bin": 9999,
 		"port_msg": 9998,
-		"ip": "ws://192.168.0.42",
+		"ip": "ws://192.168.43.82",
   		"syphon": "backend_syphon"
 	},
 	"juegos":{
-  		"plab":{"tag_id": 10},
-  		"autitos":{"tag_id": 11}
+  		"plab":{"tag_id": 16},
+  		"autitos":{"tag_id": 17}
 	}
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class RotationArrow : TagController {
 
 	public float speed;
-	void Start()
+	void Awake()
 	{
 		GetComponent<Colorate> ().SetOn (id);
 	}
