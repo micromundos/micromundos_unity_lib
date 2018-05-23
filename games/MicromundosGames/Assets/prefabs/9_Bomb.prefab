@@ -179,6 +179,7 @@ MonoBehaviour:
   all:
   - {fileID: 212556961687579806}
   - {fileID: 212783343260837314}
+  tr: {fileID: 0}
 --- !u!114 &114190886487937550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -190,8 +191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51ad8034551030b40ba229dcf757d1e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carId: 0
   id: 7
+  carID: 0
 --- !u!114 &114542422389416710
 MonoBehaviour:
   m_ObjectHideFlags: 1

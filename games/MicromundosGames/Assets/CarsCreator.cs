@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarsCreator : TagController {
+public class CarsCreator : CarsTagController {
 
 	void Start () {
 		Loop ();
-		GetComponent<Colorate> ().SetOn (id);
+		GetComponent<Colorate> ().SetOn (carID);
 	}
 	void Loop()
 	{
-		Game.Instance.AddCar (transform, id);
+		bool canAdd = Game.Instance.AddCar (transform, carID);
+
+		if (canAdd)
+			GetComponent<Animation> ().Play ("onActive");
+		
 		Invoke ("Loop", 1);
 	}
 }

@@ -618,10 +618,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 1359409279556058, guid: c34d6aed330041f479dac9bed6e879cf, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c34d6aed330041f479dac9bed6e879cf, type: 2}
   m_IsPrefabParent: 0
@@ -1604,6 +1600,7 @@ MonoBehaviour:
   color_car_id_2: {r: 0.0059472374, g: 0.8088235, b: 0.1775966, a: 1}
   cars: []
   carsContainer: {fileID: 1348747046}
+  maxCars: 5
 --- !u!1001 &1956007137
 Prefab:
   m_ObjectHideFlags: 0
@@ -1645,6 +1642,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1997373382230820, guid: c76adc330b7e3a34aa18a5484c83c839, type: 2}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114798338888764938, guid: c76adc330b7e3a34aa18a5484c83c839,
+        type: 2}
+      propertyPath: carID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114571283481994960, guid: c76adc330b7e3a34aa18a5484c83c839,
+        type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1692,6 +1699,11 @@ Prefab:
     - target: {fileID: 1219190309274318, guid: 03bf6d29548d5434e970f2b39d6dcd0e, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114371579974460214, guid: 03bf6d29548d5434e970f2b39d6dcd0e,
+        type: 2}
+      propertyPath: carID
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 03bf6d29548d5434e970f2b39d6dcd0e, type: 2}

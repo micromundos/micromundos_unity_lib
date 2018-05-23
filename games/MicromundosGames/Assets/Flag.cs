@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Flag : TagController {
+public class Flag : CarsTagController {
 
 	public int num;
 	public GameObject fieldsContainer;
@@ -13,9 +13,9 @@ public class Flag : TagController {
 	}
 	public void SetOn(int _carId)
 	{
-		if(id != _carId) return;
+		if(carID != _carId) return;
 		NewCar ();
-		GetComponent<Colorate> ().SetOn (id);
+		GetComponent<Colorate> ().SetOn (carID);
 	}
 	void NewCar () {
 		num++;

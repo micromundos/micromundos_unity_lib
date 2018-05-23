@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bomb : TagController {
+public class Bomb : CarsTagController {
 
 
 	void Start()
