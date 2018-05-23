@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Colorizer : TagController {
+public class Colorizer : CarsTagController {
 	 
 	void Start () {		
-		GetComponent<Colorate> ().SetOn (id);
+		GetComponent<Colorate> ().SetOn (carID);
 	}
 	void OnTriggerEnter2D(Collider2D other)
 	{		
@@ -14,14 +14,19 @@ public class Colorizer : TagController {
 			return;
 		if (other.GetComponent<Colorizer> ())
 			return;
+		CarsTagController carsTagController = other.GetComponent<CarsTagController> () ;
+		if (carsTagController == null)
+			return;
 		
-		SetCarID (id);
+		carsTagController.SetCarID (carID);
+
+		//SetCarID (carID);
 	}
-	void SetCarID(int _carId)
-	{
-		this.id = _carId;
-		Colorate c = GetComponent<Colorate> ();
-		if (c != null)
-			c.SetOn (id);			
-	}
+//	void SetCarID(int _carId)
+//	{
+//		this.carID = _carId;
+//		Colorate c = GetComponent<Colorate> ();
+//		if (c != null)
+//			c.SetOn (id);		
+//	}
 }

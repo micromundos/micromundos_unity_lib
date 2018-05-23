@@ -100,7 +100,7 @@ public class ServerData : MonoBehaviour {
 
 		Debug.Log (filePath);
 
-		StartCoroutine(Import(filePath));
+		//StartCoroutine(Import(filePath));
 
 	}
 

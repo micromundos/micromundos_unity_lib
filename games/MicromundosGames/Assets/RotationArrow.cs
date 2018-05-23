@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotationArrow : TagController {
+public class RotationArrow : CarsTagController {
 
 	public float speed;
 	void Start()

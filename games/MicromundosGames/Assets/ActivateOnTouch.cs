@@ -5,6 +5,7 @@ using UnityEngine;
 public class ActivateOnTouch : MonoBehaviour {
 
 	Animation anim;
+
 	void Start()
 	{
 		anim = GetComponent<Animation> ();

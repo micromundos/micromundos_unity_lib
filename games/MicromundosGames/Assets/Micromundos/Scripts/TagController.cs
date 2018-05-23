@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TagController : MonoBehaviour {
 
-	public int carId;
 	public int id;
 
 	// Use this for initialization
@@ -26,13 +25,6 @@ public class TagController : MonoBehaviour {
 
 	public void SetPosition(Camera cam){
 			transform.localPosition = MicromundosManager.Instance.GetBlockPosition (id, cam);
-	}
-	public void SetCarID(int _carId)
-	{
-		this.carId = _carId;
-		Colorate c = GetComponent<Colorate> ();
-		if (c != null)
-			c.SetOn (carId);			
 	}
 
 	public void OnUpdate () {

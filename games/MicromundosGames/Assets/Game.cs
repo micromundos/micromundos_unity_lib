@@ -13,7 +13,7 @@ public class Game : MonoBehaviour {
 
 	public List<Car> cars;
 	public Transform carsContainer;
-
+	public int maxCars;
 	public static Game Instance
 	{
 		get
@@ -37,14 +37,16 @@ public class Game : MonoBehaviour {
 		}
 		return defaultColor;
 	}
-	public void AddCar(Transform parent, int carId) {
+	public bool AddCar(Transform parent, int carId) {
+		if (cars.Count > maxCars)
+			return false;
 		Car car = Instantiate (car_to_instantiate);
 		car.transform.SetParent (carsContainer);
 		car.transform.localEulerAngles = parent.localEulerAngles;
 		car.transform.localPosition = parent.position;
 		car.SetID( carId );
 		cars.Add (car);
-
+		return true;
 	}
 	public void RemoveCar(Car car)
 	{

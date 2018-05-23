@@ -38,9 +38,9 @@ public class Car : MonoBehaviour {
 		if (flag != null)
 			flag.SetOn (id);
 		
-		ActivateOnTouch aactivateOnTouch = other.GetComponent<ActivateOnTouch> ();
-		if (aactivateOnTouch != null)
-			aactivateOnTouch.SetOn ();
+		ActivateOnTouch activateOnTouch = other.GetComponent<ActivateOnTouch> ();
+		if (activateOnTouch != null)
+			activateOnTouch.SetOn ();
 
 		Bomb bomb = other.GetComponent<Bomb> ();
 		Turn turn = other.GetComponent<Turn> ();
@@ -54,7 +54,7 @@ public class Car : MonoBehaviour {
 		} else if (rotationArrow != null) {
 			rotatingLoop.speed = rotationArrow.speed;
 			rotatingLoop.enabled = true;
-		} else if (bomb != null && bomb.id== id)
+		} else if (bomb != null && bomb.carID== id)
 			Game.Instance.RemoveCar (this);
 	}
 	void OnTriggerExit2D(Collider2D other)
@@ -70,7 +70,7 @@ public class Car : MonoBehaviour {
 	}
 	void RotateTo()
 	{
-		move.SetSpeed (0.5f);
+		move.SetSpeed (0.7f);
 		state = states.ROTATING;
 	}
 	bool madeFirstCheck;
@@ -94,7 +94,7 @@ public class Car : MonoBehaviour {
 	}
 	void Turn(bool turnLeft)
 	{
-		move.ResetSpeed (0.2f);
+		move.ResetSpeed (0.5f);
 		Vector3 rot = transform.localEulerAngles;
 		if (turnLeft)
 			rot.z += 4;
