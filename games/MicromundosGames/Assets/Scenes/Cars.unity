@@ -1600,7 +1600,7 @@ MonoBehaviour:
   color_car_id_2: {r: 0.0059472374, g: 0.8088235, b: 0.1775966, a: 1}
   cars: []
   carsContainer: {fileID: 1348747046}
-  maxCars: 5
+  maxCars: 50
 --- !u!1001 &1956007137
 Prefab:
   m_ObjectHideFlags: 0

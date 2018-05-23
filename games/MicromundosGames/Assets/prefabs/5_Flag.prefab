@@ -367,8 +367,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab8fa5e30baaf8948830e73526915e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carId: 0
-  id: 15
+  id: 5
+  carID: 0
   num: 0
   fieldsContainer: {fileID: 1363668871413178}
 --- !u!114 &114743391287249602
@@ -385,6 +385,7 @@ MonoBehaviour:
   all:
   - {fileID: 212729259679049992}
   - {fileID: 212891979731666574}
+  tr: {fileID: 0}
 --- !u!212 &212729259679049992
 SpriteRenderer:
   m_ObjectHideFlags: 1
