@@ -159,8 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9c0e684fd5d414c90e02ed93cbb57c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carId: 2
-  id: 14
+  id: 7
+  carID: 2
 --- !u!114 &114629064985745342
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -175,6 +175,7 @@ MonoBehaviour:
   all:
   - {fileID: 212357419308751986}
   - {fileID: 212247585697961562}
+  tr: {fileID: 0}
 --- !u!212 &212247585697961562
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -155,8 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274db630bac1ac645bf8fe80b163e7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carId: 0
-  id: 9
+  id: 3
+  carID: 0
   speed: 100
 --- !u!114 &114572330274495290
 MonoBehaviour:
@@ -172,6 +172,7 @@ MonoBehaviour:
   all:
   - {fileID: 212869166889115346}
   - {fileID: 212509852960065130}
+  tr: {fileID: 0}
 --- !u!114 &114896654375650776
 MonoBehaviour:
   m_ObjectHideFlags: 1

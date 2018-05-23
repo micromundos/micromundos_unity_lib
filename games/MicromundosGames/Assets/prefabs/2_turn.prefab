@@ -51,8 +51,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4965805769393676}
-  - component: {fileID: 61072465428751362}
   - component: {fileID: 114101343450998688}
+  - component: {fileID: 61072465428751362}
   - component: {fileID: 114973527177969078}
   - component: {fileID: 111994304829768578}
   - component: {fileID: 114920096575722874}
@@ -155,8 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f79e0b3269b507f45ad0202d370734e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carId: 0
-  id: 16
+  id: 2
+  carID: 0
 --- !u!114 &114920096575722874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -171,6 +171,7 @@ MonoBehaviour:
   all:
   - {fileID: 212097452895975004}
   - {fileID: 212815669866843272}
+  tr: {fileID: 0}
 --- !u!114 &114973527177969078
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turn : TagController {
+public class Turn : CarsTagController {
 	void Start()
 	{
 		GetComponent<Colorate> ().SetOn (id);
