@@ -7,7 +7,7 @@ public class TagManager : MonoBehaviour {
 	public Camera cam;
 	public List<TagController> tagList;
 
-	public List<TagController> instances;
+	List<TagController> instances;
 
 	Dictionary<int,bool> detectedIds;
 
@@ -41,7 +41,7 @@ public class TagManager : MonoBehaviour {
 	}
 
 	void OnBlockExit(int _id){
-		print ("kk");
+
 		for (int i = instances.Count - 1; i >= 0; i--) {			
 			if (instances [i].id == _id) {
 				instances [i].OnBlockExit ();

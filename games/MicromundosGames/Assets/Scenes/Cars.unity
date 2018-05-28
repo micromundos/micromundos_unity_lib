@@ -854,8 +854,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c85205f1068144984a50a1f9305ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tex: {fileID: 2800000, guid: 7165949ded1c42c458eec9c925c03b12, type: 3}
   raw: {fileID: 1697781063}
+  websocketState: 0
 --- !u!114 &587572358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -868,7 +868,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49bb08815155ffc4085b58fce500f1d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _juego_active: 
   fps: {fileID: 494662413}
+  estado: 0
 --- !u!114 &587572359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -897,6 +899,8 @@ MonoBehaviour:
   serverData: {fileID: 0}
   msgClient: {fileID: 0}
   binClient: {fileID: 0}
+  appName: autitos
+  mainCamera: {fileID: 0}
   cross: {fileID: 1610299237804780, guid: ef73543ddae8cae4d9af09b2aab901ca, type: 2}
   calib: {fileID: 154086983}
   backendTex: {fileID: 1697781062}
