@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Funnel;
+using Klak.Syphon;
 
 public class MicromundosManager : MonoBehaviour {
 
@@ -158,24 +158,23 @@ public class MicromundosManager : MonoBehaviour {
 	}
 
 	public void AddSyphon(){
-		
 		#if UNITY_EDITOR_OSX
-			Funnel.Funnel f = mainCamera.gameObject.AddComponent<Funnel.Funnel> ();
-			mainCamera.gameObject.name = serverData.GetSyphonClientName ();
-			f.renderMode = Funnel.Funnel.RenderMode.PreviewOnGameView;
-			f.enabled = false;
-			//mainCamera.gameObject.AddComponent<Syphon> ();
-			//mainCamera.gameObject.GetComponent<Syphon> ().runInEditMode = true;
-			//mainCamera.gameObject.AddComponent<SyphonServerTexture> ();
-			
+		SyphonServer f = mainCamera.gameObject.AddComponent<SyphonServer> ();
+		mainCamera.gameObject.name = serverData.GetSyphonClientName ();
+		//f.renderMode = Funnel.Funnel.RenderMode.PreviewOnGameView;
+		f.enabled = false;
+		//mainCamera.gameObject.AddComponent<Syphon> ();
+		//mainCamera.gameObject.GetComponent<Syphon> ().runInEditMode = true;
+		//mainCamera.gameObject.AddComponent<SyphonServerTexture> ();
+		
 		#elif UNITY_STANDALONE_OSX
-			Funnel.Funnel f = mainCamera.gameObject.AddComponent<Funnel.Funnel> ();
-			mainCamera.gameObject.name = serverData.GetSyphonClientName ();
-			f.renderMode = Funnel.Funnel.RenderMode.PreviewOnGameView;
-			f.enabled = false;
-			//mainCamera.gameObject.AddComponent<Syphon> ();
-			//mainCamera.gameObject.AddComponent<SyphonServerTexture> ();
-			
+		SyphonServer f = mainCamera.gameObject.AddComponent<SyphonServer> ();
+		mainCamera.gameObject.name = serverData.GetSyphonClientName ();
+		//f.renderMode = Funnel.Funnel.RenderMode.PreviewOnGameView;
+		f.enabled = false;
+		//mainCamera.gameObject.AddComponent<Syphon> ();
+		//mainCamera.gameObject.AddComponent<SyphonServerTexture> ();
+		
 		#endif
 	}
 
@@ -183,7 +182,6 @@ public class MicromundosManager : MonoBehaviour {
 		Debug.Log (appName + "==" + active);
 		bool enabled = active == appName ? true : false;
 		Time.timeScale = enabled ? 1 : 0;
-		mainCamera.gameObject.GetComponent<Funnel.Funnel> ().enabled=enabled;
-
+		mainCamera.gameObject.GetComponent<SyphonServer> ().enabled=enabled;
 	}
 }
