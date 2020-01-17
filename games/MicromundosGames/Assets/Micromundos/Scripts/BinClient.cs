@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WebSocketSharp;
@@ -15,9 +15,9 @@ public class BinClient : MonoBehaviour {
 
 	bool locked, received;
 	byte[] pix_data;
-	Texture2D tex;
+	public Texture2D tex;
 
-	[HideInInspector]
+	//[HideInInspector]
 	public RawImage raw;
 
 	float reconnectDelay = 5;
