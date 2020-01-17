@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 114434892742317264}
   - component: {fileID: 114143738220988088}
   - component: {fileID: 114908046218495126}
-  - component: {fileID: 114161344674282154}
+  - component: {fileID: 114612145355251194}
   m_Layer: 0
   m_Name: MicromundosManager
   m_TagString: Untagged
@@ -305,23 +305,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49bb08815155ffc4085b58fce500f1d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _juego_active: 
   fps: {fileID: 114190378624414212}
---- !u!114 &114161344674282154
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1652418860915382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87a43e1629d0e954f9c2ca3375e75c6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 0}
-  tagList:
-  - {fileID: 114798338888764938, guid: c76adc330b7e3a34aa18a5484c83c839, type: 2}
-  - {fileID: 114101343450998688, guid: 76a5569500b8d644dbb2956bd6ee1d72, type: 2}
-  - {fileID: 114004205390543572, guid: 1e3221380bb760d4c90afadc8da29988, type: 2}
+  estado: 0
 --- !u!114 &114190378624414212
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -461,6 +447,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114612145355251194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1652418860915382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87a43e1629d0e954f9c2ca3375e75c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+  tagList: []
 --- !u!114 &114679306629796476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -491,6 +490,8 @@ MonoBehaviour:
   serverData: {fileID: 0}
   msgClient: {fileID: 0}
   binClient: {fileID: 0}
+  appName: 
+  mainCamera: {fileID: 0}
   cross: {fileID: 1610299237804780, guid: ef73543ddae8cae4d9af09b2aab901ca, type: 2}
   calib: {fileID: 1323142592280000}
   backendTex: {fileID: 1787145220721956}
@@ -532,6 +533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raw: {fileID: 114834115472650428}
+  websocketState: 0
 --- !u!114 &114919564786823820
 MonoBehaviour:
   m_ObjectHideFlags: 1

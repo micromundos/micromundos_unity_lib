@@ -6,12 +6,13 @@ using System.IO;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using YamlDotNet.Samples.Helpers;
+using SimpleJSON;
 
 [HideInInspector]
 public class ServerData : MonoBehaviour {
 
-	string serverPath = "\\data\\server.yml";
-	string configPath = "\\data\\config.yml";
+	string serverPath = "\\data\\backend.json";
+	string configPath = "\\data\\config.json";
 
 
 	int width;
@@ -23,84 +24,26 @@ public class ServerData : MonoBehaviour {
 	string port_msg;
 	string ip;
 
+	string syphon_client;
+
 	float resize_pixels;
 
 	[HideInInspector]
 	public Vector2[] proj_pts;
 
-	[Serializable]
-	public class ServerYML
-	{
-		public Backend_server backend_server { get; set; }
-		public Network network { get; set; }
-		public float resize_pixels { get; set; }
-	}
-
-	[Serializable]
-	public class Backend_server
-	{
-		public int width { get; set; }
-		public int height { get; set; }
-		public int x{ get; set; }
-		public int y{ get; set; }
-	}
-
-	[Serializable]
-	public class Network
-	{
-		public string port_bin { get; set; }
-		public string port_msg { get; set; }
-		public string ip { get; set; }
-	}
-
-	[Serializable]
-	public class ConfigYML
-	{
-		public Projector projector { get; set; }
-		public CamConfig cam { get; set; }
-		public Calib calib { get; set; }
-	}
-
-	[Serializable]
-	public class Projector
-	{
-		public int width { get; set; }
-		public int height { get; set; }
-		public bool fullscreen { get; set; }
-		public string position { get; set; }
-		public int x{ get; set; }
-		public int y{ get; set; }
-	}
-
-	[Serializable]
-	public class CamConfig
-	{
-		public int width { get; set; }
-		public int height { get; set; }
-		public int device_id { get; set; }
-	}
-
-	[Serializable]
-	public class Calib
-	{
-		public string file { get; set; }
-		public int tag_id { get; set; }
-		public float[][] proj_pts { get; set; }
-	}
-
 	void Awake () {
 
 		#if UNITY_EDITOR
-		string filePath = Directory.GetParent (Application.dataPath).FullName;
+		string filePath =  Directory.GetParent (Directory.GetParent (Application.dataPath).FullName).FullName;
 		#elif UNITY_STANDALONE_WIN
-		string filePath = Directory.GetParent(Application.dataPath).FullName;
+		string filePath = Directory.GetParent (Directory.GetParent (Application.dataPath).FullName).FullName;
 		#elif UNITY_STANDALONE_OSX
 		string filePath = Directory.GetParent(Directory.GetParent(Application.dataPath).FullName).FullName;
 		#endif
 
 		Debug.Log (filePath);
 
-		//StartCoroutine(Import(filePath));
+		StartCoroutine(Import(filePath));
 
 	}
 
@@ -108,37 +51,31 @@ public class ServerData : MonoBehaviour {
 		WWW www = new WWW ("file://" + file + serverPath);
 		yield return www;
 		string text = www.text;
+	
+		var N = JSON.Parse (text);
 
-		var input = new StringReader(text);
+		width = N["monitor"]["width"].AsInt;
+		height = N["monitor"]["height"].AsInt;
+		x = N["monitor"]["x"].AsInt;
+		y = N["monitor"]["y"].AsInt;
 
-		var deserializer = new DeserializerBuilder().Build();
-
-		var serverText = deserializer.Deserialize<ServerYML>(input);
-
-		width = serverText.backend_server.width;
-		height = serverText.backend_server.height;
-		x = serverText.backend_server.x;
-		y = serverText.backend_server.y;
-
-		port_bin = serverText.network.port_bin;
-		port_msg = serverText.network.port_msg;
-		ip = serverText.network.ip;
-
-		resize_pixels = serverText.resize_pixels;
+		resize_pixels = N["network"]["resize_pixels"].AsFloat;
 
 		www = new WWW ("file://" + file + configPath);
 		yield return www;
 		text = www.text;
 
-		input = new StringReader(text);
+		N = JSON.Parse (text);
 
-		deserializer = new DeserializerBuilder().Build();
+		port_bin = N["backend"]["port_bin"];
+		port_msg = N["backend"]["port_msg"];
+		ip = N["backend"]["ip"];
 
-		var configText = deserializer.Deserialize<ConfigYML>(input);
+		syphon_client = N["projector"]["syphon"];
 
-		proj_pts = new Vector2[configText.calib.proj_pts.Length];
-		for(int i=0;i<configText.calib.proj_pts.Length;i++)
-			proj_pts[i] = new Vector2(configText.calib.proj_pts[i][0],configText.calib.proj_pts[i][1]);
+		proj_pts = new Vector2[N["calib"]["proj_pts"].AsArray.Count];
+		for(int i=0;i<N["calib"]["proj_pts"].AsArray.Count;i++)
+		proj_pts[i] = new Vector2(N["calib"]["proj_pts"].AsArray[i].AsArray[0].AsFloat,N["calib"]["proj_pts"].AsArray[i].AsArray[1].AsFloat);
 
 		MicromundosManager.Instance.SetCrosses ();
 		MicromundosManager.Instance.msgClient.init ();
@@ -155,5 +92,9 @@ public class ServerData : MonoBehaviour {
 
 	public string GetPortMsg(){
 		return port_msg;
+	}
+
+	public string GetSyphonClientName(){
+		return syphon_client;
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WebSocketSharp;
@@ -17,8 +17,12 @@ public class BinClient : MonoBehaviour {
 	byte[] pix_data;
 	public Texture2D tex;
 
-	[HideInInspector]
+	//[HideInInspector]
 	public RawImage raw;
+
+	float reconnectDelay = 5;
+	float reconnectTime;
+	public WebSocketState websocketState;
 
 	// Use this for initialization
 	public void init () {
@@ -34,7 +38,9 @@ public class BinClient : MonoBehaviour {
 		ws.OnError += OnError;
 		ws.OnClose += OnClose;
 
-		ws.Connect ();
+		//ws.Connect ();
+		//ws.ConnectAsync();
+		StartCoroutine(TryReconnect ());
 	}
 
 	void OnDestroy(){
@@ -72,6 +78,29 @@ public class BinClient : MonoBehaviour {
 
 	void OnClose(object sender, CloseEventArgs e){
 		string msg = String.Format ("WebSocket Close ({0})", e.Code) + " : " + e.Reason;
+	}
+
+	// Update is called once per frame
+	void Update () {
+		if (ws != null) {
+			websocketState = ws.ReadyState;
+			if (ws.ReadyState != WebSocketState.Open) {
+				StartCoroutine(TryReconnect ());
+			}
+		}
+	}
+
+	IEnumerator TryReconnect(){
+		if (reconnectDelay < reconnectTime) {
+			ws.Close ();
+			//ws.Connect ();
+			ws.ConnectAsync();
+			Debug.Log ("try reconnect");
+			reconnectTime = 0;
+		} else {
+			reconnectTime += Time.deltaTime;
+		}
+		yield return null;
 	}
 
 	public bool Process(int pix_w, int pix_h, int pix_chan){
@@ -122,12 +151,13 @@ public class BinClient : MonoBehaviour {
 	public bool IsPixelFill(float x_, float y_){		
 		if (x_ < 0 || x_ > 1 || y_ < 0 || y_ > 1) {
 			return false;
-		} else {	
+		} else {			
 			if (tex != null) {
 				int x = (int)(x_ * tex.width);
 				int y = (int)((1f - y_) * tex.height);
+				//print ("Tex x:"+x+" y:"+y);
 				Color c = tex.GetPixel (x,y);
-				//print ("Tex x:"+x+" y:"+y + "   " + c.a);
+				//print (c.a==1);
 				return c.a==1;
 			} else {
 				return false;
